@@ -7,21 +7,28 @@ public class Solution {
     ArrayList<AState> solutionPath;
 
     public Solution(){
+
         solutionPath = new ArrayList<>();
     }
-    public void startBuildingSolutionPath(AState node){
+    public void findPath(AState node){
         AState current = node;
-        while( current != null){
-            addToSolutionPath(node);
-            current = node.getCameFrom();
+
+        while( current != null ){
+            solutionPath.add( 0 , current );
+            current = current.getCameFrom();
+        }
+
+    }
+    public void printSolution(){
+        System.out.println("inprint solution");
+        for(int i=0; i< solutionPath.size();i++){
+            System.out.println(solutionPath.get(i).getState());
         }
     }
 
-    public void addToSolutionPath(AState node){
-        solutionPath.add( 0 , node );
-    }
     public ArrayList<AState> getSolutionPath(){
-        return null;
+
+        return solutionPath;
     }
 
 }

@@ -11,7 +11,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
     public BreadthFirstSearch(){
         super();
-        neighbors = new PriorityQueue<AState>((o1, o2) -> 0);
+        neighbors = new PriorityQueue<>((o1, o2) -> 0);
     }
 
     public String getName(){
@@ -28,7 +28,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             AState currentNode = neighbors.poll();
             if(currentNode != null) {
                 if( currentNode.equals(searchable.getGoalState())){
-                    solution.startBuildingSolutionPath(currentNode);
+                    solution.findPath(currentNode);
                     return solution;
                 }
                 ArrayList<AState> nodeNeighbors = searchable.getAllPossibleStates(currentNode);
@@ -37,7 +37,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 for( int i = 0 ; i < nodeNeighbors.size() ; i++){
                     AState currentNeighbor = nodeNeighbors.get(i);
                     if( !visitedNodes.contains(currentNeighbor)){
-                        neighbors.add(currentNode);
+                        neighbors.add(currentNeighbor);
                         currentNeighbor.setCameFrom(currentNode);
                     }
                 }

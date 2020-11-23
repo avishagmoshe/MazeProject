@@ -16,27 +16,30 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             return null;
         Stack<AState> neighbors = new Stack<>();
         neighbors.add( searchable.getStartState() );
-        if( !neighbors.isEmpty() ){
-            HashSet<AState> visitedNodes = new HashSet<>();
+        HashSet<AState> visitedNodes = new HashSet<>();
+        while( !neighbors.isEmpty() ) {
             AState currentNode = neighbors.pop();
-            if(!visitedNodes.contains(currentNode)){
-                visitedNodes.add(currentNode);
-                if( currentNode.equals(searchable.getGoalState())){
-                    solution.startBuildingSolutionPath(currentNode);
+            if (currentNode != null) {
+                if (currentNode.equals(searchable.getGoalState())) {
+                    solution.findPath(currentNode);
+                 //   solution.printSolution();
                     return solution;
-                    }
+                }
+                visitedNodes.add(currentNode);
                 ArrayList<AState> nodeNeighbors = searchable.getAllPossibleStates(currentNode);
-                numberOfNodesEvaluated ++;
-                for(int i = 0 ; i < nodeNeighbors.size() ; i++){
-                    if( !visitedNodes.contains(nodeNeighbors.get(i))) {
-                        neighbors.push(nodeNeighbors.get(i));
-                        nodeNeighbors.get(i).setCameFrom(currentNode);
+                numberOfNodesEvaluated++;
+                for (int i = 0; i < nodeNeighbors.size(); i++) {
+                    AState neighbor = nodeNeighbors.get(i);
+                    if (neighbor != null && !visitedNodes.contains(neighbor)) {
+                        neighbor.setCameFrom(currentNode);
+                        neighbors.push(neighbor);
                     }
+
                 }
             }
+        }
 
-            }
-
+      //  solution.printSolution();
         return null;
     }
 }
